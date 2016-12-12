@@ -6,7 +6,7 @@ Ninox is a new scalable database architecture with machine learning oriented fea
 
 # Database Architecture : 
 <p align="center">
-  <img src="http://armand-leopold.fr/ninox/ninox architecture.png" width="100%"/>
+  <img src="http://armand-leopold.fr/ninox/ninox%20architecture.png" width="100%"/>
 </p>
 
 # Technologies :
