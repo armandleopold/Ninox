@@ -8,3 +8,12 @@ Ninox is a new scalable database architecture with machine learning oriented fea
 <p align="center">
   <img src="http://armand-leopold.fr/ninox/ninox architecture.png" width="100%"/>
 </p>
+
+# Technologies :
+## Apache Kafka :
+
+https://kafka.apache.org/intro
+
+Kafka™ is a distributed streaming platform.
+
+## 
