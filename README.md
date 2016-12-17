@@ -13,8 +13,20 @@ Ninox is a new scalable database architecture with machine learning oriented fea
 # Technologies :
 ## Apache Kafka :
 
+Kafka™ is a distributed streaming platform.
 https://kafka.apache.org/intro
 
-Kafka™ is a distributed streaming platform.
+## Hadoop Distributed File System (HDFS) : 
 
-## 
+Distributed database system working with the hadoop environnement.
+https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html
+
+## Apache Spark : 
+
+Apache Spark™ is a fast and general engine for large-scale data processing.
+http://spark.apache.org/
+
+## MongoDB : 
+
+Distributed database system.
+https://www.mongodb.com/
