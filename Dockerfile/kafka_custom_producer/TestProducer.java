@@ -10,7 +10,7 @@ public class TestProducer {
         Random rnd = new Random();
  
         Properties props = new Properties();
-        props.put("metadata.broker.list", "kafka:9092");
+        props.put("metadata.broker.list", "0.0.0.0:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("request.required.acks", "1");
  
