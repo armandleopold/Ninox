@@ -2,9 +2,9 @@ job.name=GobblinPullFromKafka
 job.group=GobblinKafka
 job.description=Gobblin pulling data from kafka to HDFS
 job.lock.enabled=false
-job.schedule=0 0/2 * * * ?
+job.schedule=0 0/1 * * * ?
 
-kafka.brokers=172.17.0.2:9092
+kafka.brokers=172.254.0.1:9092
 
 source.class=gobblin.source.extractor.extract.kafka.KafkaSimpleSource
 extract.namespace=gobblin.extract.kafka
@@ -24,9 +24,9 @@ metrics.reporting.file.suffix=txt
 
 bootstrap.with.offset=earliest
 
-fs.uri=hdfs://172.17.0.3:9000
-writer.fs.uri=hdfs://172.17.0.3:9000
-state.store.fs.uri=hdfs://172.17.0.3:9000
+fs.uri=hdfs://172.254.0.2:9000
+writer.fs.uri=hdfs://172.254.0.2:9000
+state.store.fs.uri=hdfs://172.254.0.2:9000
 
 mr.job.root.dir=/gobblin-kafka/working
 state.store.dir=/gobblin-kafka/state-store
