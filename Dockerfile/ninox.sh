@@ -43,9 +43,9 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 ### Running Docker Images :
 
 #### Kafka : 
-sudo docker run --net ninoxnet --ip 172.254.0.1 -d --hostname kafka -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=kafka --env ADVERTISED_PORT=9092 kafka 
+sudo docker run --net ninoxnet --ip 172.254.0.7 -d --hostname kafka -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=kafka --env ADVERTISED_PORT=9092 kafka 
 ### Hadoop :
-sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
+# sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
 
 sudo docker run  --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.1' gobblin 
 
