@@ -31,4 +31,4 @@ state.store.fs.uri=hdfs://172.254.0.2:9000
 mr.job.root.dir=/gobblin-kafka/working
 state.store.dir=/gobblin-kafka/state-store
 task.data.root.dir=/jobs/kafkaetl/gobblin/gobblin-kafka/task-data
-data.publisher.final.dir=/KafkaTopics
+data.publisher.final.dir=KafkaTopics

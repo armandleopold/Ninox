@@ -1,7 +1,9 @@
 import java.util.*;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
@@ -23,16 +25,38 @@ public class DataProducer {
         String csvFile = "data.csv";
         BufferedReader br = null;
         String line = "";
+	
+	try{
 
-        br = new BufferedReader(new FileReader(csvFile));
+		br = new BufferedReader(new FileReader(csvFile));
 
-        while ((line = br.readLine()) != null) {
-        	line += ";";
-            KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
-            producer.send(data);
-
-            Thread.sleep(10000);
+		while ((line = br.readLine()) != null) {
+			line += ";";
+		    KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
+		    producer.send(data);
+		
+			try {
+				Thread.sleep(10000);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		    
+		}
+	
+	} catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
         
         producer.close();
     }
