@@ -11,7 +11,7 @@ public class DataProducer {
     public static void main(String[] args) {
  
         Properties props = new Properties();
-        props.put("metadata.broker.list", "172.254.0.1:9092");
+        props.put("metadata.broker.list", "172.254.0.7:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("request.required.acks", "1");
  

@@ -1,3 +1,4 @@
 #!bin/bash
 
-javac -cp ".:libs/*" TestProducer.java
+javac -cp ".:libs/*" DataProducer.java
+java -cp ".:libs/*" DataProducer
