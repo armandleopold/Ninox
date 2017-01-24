@@ -30,6 +30,8 @@ public class DataProducer {
         	line += ";";
             KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
             producer.send(data);
+
+            Thread.sleep(10000);
         }
         
         producer.close();

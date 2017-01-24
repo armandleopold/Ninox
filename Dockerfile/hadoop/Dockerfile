@@ -103,7 +103,7 @@ CMD ["/etc/bootstrap.sh", "-d"]
 # add initial data in hdfs
 ADD ../../Data/aggregated.csv /usr/local/aggredated.csv
 
-RUN $HADOOP_PREFIX/bin/hadoop fs -put /usr/local/aggredated.csv /gobblintest/inital
+RUN $HADOOP_PREFIX/bin/hadoop fs -put /usr/local/aggredated.csv /initial
 RUN rm /usr/local/aggredated.csv
 
 # Hdfs ports
