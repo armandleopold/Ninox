@@ -27,7 +27,7 @@ public class DataProducer {
         br = new BufferedReader(new FileReader(csvFile));
 
         while ((line = br.readLine()) != null) {
-
+        	line += ";";
             KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
             producer.send(data);
         }

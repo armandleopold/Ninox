@@ -100,6 +100,12 @@ RUN service sshd start && $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && $HADOOP_PRE
 
 CMD ["/etc/bootstrap.sh", "-d"]
 
+# add initial data in hdfs
+ADD ../../Data/aggregated.csv /usr/local/aggredated.csv
+
+RUN $HADOOP_PREFIX/bin/hadoop fs -put /usr/local/aggredated.csv /gobblintest/inital
+RUN rm /usr/local/aggredated.csv
+
 # Hdfs ports
 EXPOSE 50010 50020 50070 50075 50090 8020 9000
 # Mapred ports
