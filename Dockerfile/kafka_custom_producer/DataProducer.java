@@ -1,8 +1,5 @@
 import java.util.*;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import java.io.*;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
@@ -24,14 +21,18 @@ public class DataProducer {
         BufferedReader br = null;
         String line = "";
 
-        br = new BufferedReader(new FileReader(csvFile));
+        try {
 
-        while ((line = br.readLine()) != null) {
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
 
-            KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
-            producer.send(data);
+                KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
+                producer.send(data);
+            }
+        } catch(IOException e) {
+
         }
-        
+
         producer.close();
     }
 }
