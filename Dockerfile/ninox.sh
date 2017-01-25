@@ -31,8 +31,9 @@ sudo docker build -t kafka kafka/
 sudo docker build -t gobblin gobblin/
 
 # Nginx
-sudo docker build -t nginx nginx/
-
+#sudo docker build -t nginx nginx/
+#rockerMongodb
+sudo docker build -t rocker rockermongo-master/
 
 ###################################
 #### Creating docker network :
@@ -62,4 +63,7 @@ sudo docker run --net ninoxnet --ip 172.254.0.5 -d spark
 # On peut lancer le custom producer (depuis le dossier custom producer) : java -cp ".:libs/*" TestProducer 2
 # Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 
-sudo docker run --net ninoxnet --ip 172.254.0.6 -d nginx 
+#phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
+sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.7 --env MONGO_HOST=mongo rocker
+
+#sudo docker run --net ninoxnet --ip 172.254.0.6 -d nginx 
