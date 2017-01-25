@@ -34,6 +34,8 @@ sudo docker build -t gobblin gobblin/
 #sudo docker build -t nginx nginx/
 #rockerMongodb
 sudo docker build -t rocker rockermongo-master/
+#node.js
+sudo  docker build -t nodetest node/
 
 ###################################
 #### Creating docker network :
@@ -65,5 +67,8 @@ sudo docker run --net ninoxnet --ip 172.254.0.5 -d spark
 
 #phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
 sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.7 --env MONGO_HOST=mongo rocker
+#node.js driver pour connecter à la bddmongo
+#voir readme.txt dans le dockerfile/node
+sudo docker run -p 49160:9090 -p 49161:3000 --name nodejs --net ninoxnet --ip 172.254.0.8 --link mongo:mongo -d nodetest
 
 #sudo docker run --net ninoxnet --ip 172.254.0.6 -d nginx 
