@@ -13,8 +13,7 @@ COPY package.json /usr/src/app/
 RUN npm install
 RUN npm install mongodb
 RUN npm install body-parser
-RUN npm install express
-
+RUN npm install mongoose
 
 # Bundle app source
 COPY . /usr/src/app
