@@ -44,7 +44,10 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 ### Running Docker Images :
 
 #### Kafka : 
-sudo docker run --net ninoxnet --ip 172.254.0.7 -d --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka 
+
+
+sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
+
 ### Hadoop :
 # sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
 
@@ -52,14 +55,14 @@ sudo docker run  --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.
 
 #### MongoDB :
 # FOR STARTING THE DOCKER FILE :
-sudo docker run --net ninoxnet --ip 172.254.0.4 -d -p 27017:27017 mongodb 
+sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
 # on vérifie que la machine communique bien avec la source :
 # netstat --listen
 # sudo docker ps
 # ping 0.0.0.0 -p 27017
 
-sudo docker run --net ninoxnet --ip 172.254.0.5 -d spark 
+sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.5 -it spark"
 # On peut lancer le custom producer (depuis le dossier custom producer) : java -cp ".:libs/*" TestProducer 2
 # Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 
