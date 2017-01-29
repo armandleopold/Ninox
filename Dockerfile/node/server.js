@@ -8,6 +8,8 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({extended: true}));  
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
+
 mongoose.connect('mongodb://172.254.0.4:27017/wallmart');  
 var wallmartSchema = mongoose.Schema({  
   Store: Number,
@@ -29,7 +31,7 @@ var wallmartSchema = mongoose.Schema({
 var Wallmart = mongoose.model('Wallmart', wallmartSchema);
 
 var router = express.Router();  
-router.route('/')  
+router.route('/api')  
     .get(function(req, res){
       Wallmart.find(function(err, wallmarts){
         if(err){

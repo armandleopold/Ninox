@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="/HTML/assets/js/jquery.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        $.getJSON('http://localhost:49160/api/').done(function(data) {
+            console.log(data)
+        })
+    </script>
+</body>
+</html>
+
+
