@@ -30,17 +30,24 @@ public class DataProducer {
 
 		br = new BufferedReader(new FileReader(csvFile));
 
+        int i = 1;
 		while ((line = br.readLine()) != null) {
+
 			line += ";";
 		    KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
 		    producer.send(data);
 		
 			try {
+
+                System.out.println("Ligne n° "+i+" envoyé.");
+                System.out.println(line);
+                
 				Thread.sleep(10000);
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
-		    
+
+            i = i+1;
 		}
 	
 	} catch (FileNotFoundException e) {

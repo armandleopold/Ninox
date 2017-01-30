@@ -1,0 +1,1 @@
+/home/toto/Ninox/kafka_custom_producer/compile.sh
