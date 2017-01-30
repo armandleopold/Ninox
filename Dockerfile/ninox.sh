@@ -9,6 +9,8 @@
 ##################################################
 ##################################################
 
+sudo bash rm.sh
+
 ###################################
 #### Building docker images :
 
@@ -63,7 +65,9 @@ sudo gnome-terminal -e "docker run --name mongodb --net ninoxnet --ip 172.254.0.
 # sudo docker ps
 # ping 0.0.0.0 -p 27017
 
-sudo gnome-terminal -e "docker run --name spark --net ninoxnet --ip 172.254.0.5 -it spark"
+cd ../Dockerfile/
+sudo ln -s ../Spark_Stream/ Spark_Stream
+sudo gnome-terminal -e "docker run --name spark -v Spark_Stream:/home/Spark_Stream --net ninoxnet --ip 172.254.0.5 -it spark"
 # On peut lancer le custom producer (depuis le dossier custom producer) : java -cp ".:libs/*" TestProducer 2
 # Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 

@@ -25,6 +25,8 @@ RUN $BOOTSTRAP && $HADOOP_PREFIX/bin/hdfs dfsadmin -safemode leave && $HADOOP_PR
 ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 ENV HADOOP_USER_NAME root
 
+RUN mkdir /home/Spark_Stream
+
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
 # update boot script
 # RUN wget http://armand-leopold.fr/ninox/bootstrap.sh.tar.gz
