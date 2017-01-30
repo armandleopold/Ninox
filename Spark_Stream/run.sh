@@ -2,16 +2,15 @@
 sudo apt-get install -y gnome-terminal
 
 # Run architecture core
-sudo ln -s ~/Ninox/Dockerfile/ninox.sh ninox.sh
-sudo gnome-terminal -e "bash ninox.sh"
-sleep 15
+sudo gnome-terminal -e "bash ../Dockerfile/ninox.sh"
+sleep 11
 
 # Creating symbolic link
-sudo ln -s ~/Ninox/kafka_custom_producer/DataProducer.class DataProducer.class
-sudo ln -s ~/Ninox/kafka_custom_producer/DataProducer.java DataProducer.java
-sudo ln -s ~/Ninox/kafka_custom_producer/libs/ libs
-sudo ln -s ~/Ninox/kafka_custom_producer/data.csv data.csv
-sudo ln -s ~/Ninox/kafka_custom_producer/compile.sh compile.sh
+sudo ln -s ../kafka_custom_producer/DataProducer.class DataProducer.class
+sudo ln -s ../kafka_custom_producer/DataProducer.java DataProducer.java
+sudo ln -s ../kafka_custom_producer/libs/ libs
+sudo ln -s ../kafka_custom_producer/data.csv data.csv
+sudo ln -s ../kafka_custom_producer/compile.sh compile.sh
 
 export YARN_CONF_DIR="`pwd`/yarn-remote-client"
 export HADOOP_USER_NAME=root
@@ -22,8 +21,8 @@ sudo gnome-terminal -e "bash compile.sh"
 # sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.5 -it spark"
 
 # Run application locally on 8 cores
-sudo ~/spark-2.1.0/bin/spark-submit \
+sudo ../../spark-2.1.0/bin/spark-submit \
 	--packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.1.0 \
 	--master local[4] \
-	~/Ninox/Spark_Stream/kafka_spark_mongodb.py 172.254.0.7:2181 incomingData
+	kafka_spark_mongodb.py 172.254.0.7:2181 incomingData
 	100
