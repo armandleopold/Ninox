@@ -44,8 +44,6 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 ### Running Docker Images :
 
 #### Kafka : 
-
-
 sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
 ### Hadoop :
@@ -70,3 +68,4 @@ sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.5 -it spark"
 sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.7 --env MONGO_HOST=mongo rocker
 
 #sudo docker run --net ninoxnet --ip 172.254.0.6 -d nginx 
+sudo docker ps

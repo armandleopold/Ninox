@@ -26,6 +26,7 @@ external/kafka-assembly/target/scala-*/spark-streaming-kafka-assembly-*.jar \
 examples/src/main/python/streaming/kafka_wordcount.py \
 localhost:2181 test`
 """
+
 from __future__ import print_function
 
 import sys
@@ -40,11 +41,13 @@ if __name__ == "__main__":
         exit(-1)
 
     sc = SparkContext(appName="PythonStreamingKafkaWordCount")
-    ssc = StreamingContext(sc, 1)
+    ssc = StreamingContext(sc, 10)
 
-    zkQuorum, topic = sys.argv[1:]
-    kvs = KafkaUtils.createStream(ssc, zkQuorum, "incomingData", {topic: 1})
-    lines = kvs.map(lambda x: x[1])
+    directKafkaStream = KafkaUtils.createDirectStream(ssc, ["incomingData"], {"metadata.broker.list": "172.254.0.7:9092"})
+    
+    lines = directKafkaStream.map(lambda x: x[1])
+    print(lines)
+
     counts = lines.flatMap(lambda line: line.split(" ")) \
         .map(lambda word: (word, 1)) \
         .reduceByKey(lambda a, b: a+b)
