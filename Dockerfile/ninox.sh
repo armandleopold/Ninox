@@ -47,23 +47,23 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 ### Running Docker Images :
 
 #### Kafka : 
-sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
+sudo gnome-terminal -e "docker run --name kafka --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
 ### Hadoop :
 # sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
 
-sudo docker run  --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.1' gobblin 
+sudo docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.1' gobblin 
 
 #### MongoDB :
 # FOR STARTING THE DOCKER FILE :
-sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
+sudo gnome-terminal -e "docker run --name mongodb --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
 # on vérifie que la machine communique bien avec la source :
 # netstat --listen
 # sudo docker ps
 # ping 0.0.0.0 -p 27017
 
-sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.5 -it spark"
+sudo gnome-terminal -e "docker run --name spark --net ninoxnet --ip 172.254.0.5 -it spark"
 # On peut lancer le custom producer (depuis le dossier custom producer) : java -cp ".:libs/*" TestProducer 2
 # Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 
