@@ -19,10 +19,6 @@ sudo docker build -t mongodb mongodb/
 
 # Hadoop
 sudo docker build -t hadoop hadoop/
-# J'ai passé le hadoop avec la dernière version 2.7.3 dans le git "officiel"
-# c'est 2.7.1
-# Voici les commandes pour créer un docker simple après avec télécharger 
-# l'archive et dézippé dans votre dossier docker
 
 # Spark
 sudo docker build -t spark spark/
@@ -33,11 +29,10 @@ sudo docker build -t kafka kafka/
 # Gobblin
 sudo docker build -t gobblin gobblin/
 
-# Nginx
-#sudo docker build -t nginx nginx/
-#rockerMongodb
+# rockerMongodb
 sudo docker build -t rocker rockermongo-master/
-#node.js
+#
+ node.js
 sudo  docker build -t nodetest node/
 
 ###################################
@@ -51,30 +46,24 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 #### Kafka : 
 sudo gnome-terminal -e "docker run --name kafka --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
-### Hadoop :
-sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
+#### Hadoop :
+sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash"
 
-sudo docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.1' gobblin 
+#### Gobblin :
+sudo gnome-terminal -e "docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -it --add-host='kafka:172.254.0.1' gobblin "
 
 #### MongoDB :
-# FOR STARTING THE DOCKER FILE :
 sudo gnome-terminal -e "docker run --name mongo --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
-# on vérifie que la machine communique bien avec la source :
-# netstat --listen
-# sudo docker ps
-# ping 0.0.0.0 -p 27017
-
+#### Spark :
 sudo gnome-terminal -e "docker run --name spark -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -it spark"
-# On peut lancer le custom producer (depuis le dossier custom producer) : java -cp ".:libs/*" TestProducer 2
-# Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 
-#phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
-sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker
+#### MongoRocker :
+sudo gnome-terminal -e "docker run -it -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker"
+# phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
+
+#### NodeJs :
+sudo gnome-terminal -e " docker run -p 49160:9090 -p 49161:3000 --name nodejs --net ninoxnet --ip 172.254.0.8 --link mongo:mongo -it -v $PWD/siteweb/:/usr/src/app/public nodetest"
 #node.js driver pour connecter à la bddmongo
 #voir readme.txt dans le dockerfile/node
 #mise en place du serveur express avec le siteweb accessible depuis localhost:49160/HTML/index.html
-sudo docker run -p 49160:9090 -p 49161:3000 --name nodejs --net ninoxnet --ip 172.254.0.8 --link mongo:mongo -d -v $PWD/siteweb/:/usr/src/app/public nodetest
-
-#sudo docker run --net ninoxnet --ip 172.254.0.6 -d nginx 
-sudo docker ps

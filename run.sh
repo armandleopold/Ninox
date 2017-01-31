@@ -5,19 +5,17 @@ sudo apt-get install -y gnome-terminal
 sudo gnome-terminal -e "bash Dockerfile/ninox.sh"
 sleep 15
 
-ln -s producer/compile.sh compile.sh
-ln -s producer/libs libs
-ln -s producer/data.csv data.csv
-ln -s producer/DataProducer.class DataProducer.class
-ln -s producer/DataProducer.java DataProducer.java
+# ln -s producer/compile.sh compile.sh
+# ln -s producer/libs libs
+# ln -s producer/data.csv data.csv
+# ln -s producer/DataProducer.class DataProducer.class
+# ln -s producer/DataProducer.java DataProducer.java
 
-export YARN_CONF_DIR="`pwd`/yarn-remote-client"
-export HADOOP_USER_NAME=root
-export SPARK_PUBLIC_DNS=172.254.0.5
-export SPARK_LOCAL_IP=172.254.0.5
+# compile & run producer
+cd producer
+sudo bash compile.sh
 
-sudo gnome-terminal -e "bash producer/compile.sh"
-# sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.5 -it spark"
+# sudo gnome-terminal -e "bash producer/compile.sh"
 
 # Run application locally on 8 cores
 sudo docker exec spark spark-submit \
