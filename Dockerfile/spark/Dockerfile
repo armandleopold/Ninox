@@ -17,6 +17,8 @@ RUN cd $SPARK_HOME/
 RUN tar -zxvf yarn-remote-client.tar.gz 
 RUN ls /usr/local/spark-2.1.0-bin-hadoop2.7/
 
+ADD spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar
+
 ENV SPARK_PUBLIC_DNS 172.254.0.5
 ENV SPARK_LOCAL_IP 172.254.0.5
 
@@ -25,14 +27,6 @@ RUN $BOOTSTRAP && $HADOOP_PREFIX/bin/hdfs dfsadmin -safemode leave && $HADOOP_PR
 ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 ENV HADOOP_USER_NAME root
 
-RUN mkdir /home/Spark_Stream
+RUN mkdir /home/consumer
 
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
-# update boot script
-# RUN wget http://armand-leopold.fr/ninox/bootstrap.sh.tar.gz
-# RUN cd /etc/
-# RUN tar -zxvf bootstrap.sh.tar.gz 
-# RUN chown root.root /etc/bootstrap.sh
-# RUN chmod 700 /etc/bootstrap.sh
-#
-# ENTRYPOINT ["/etc/bootstrap.sh"]
