@@ -50,6 +50,15 @@ people = my_spark.createDataFrame([("Bilbo Baggins",  50), ("Gandalf", 1000), ("
 
 people.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
 
+df = my_spark.read.format("com.mongodb.spark.sql.DefaultSource").load()
+
+for row in df.rdd.collect():
+    print(row)
+
+print(df)
+
+print("HELLO WORLD !")
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: kafka_wordcount.py <zk> <topic>", file=sys.stderr)
