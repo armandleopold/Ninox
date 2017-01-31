@@ -52,13 +52,13 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 sudo gnome-terminal -e "docker run --name kafka --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
 ### Hadoop :
-# sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
+sudo docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash 
 
 sudo docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -d --add-host='kafka:172.254.0.1' gobblin 
 
 #### MongoDB :
 # FOR STARTING THE DOCKER FILE :
-sudo gnome-terminal -e "docker run --name mongodb --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
+sudo gnome-terminal -e "docker run --name mongo --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
 # on vérifie que la machine communique bien avec la source :
 # netstat --listen

@@ -18,6 +18,8 @@ RUN tar -zxvf yarn-remote-client.tar.gz
 RUN ls /usr/local/spark-2.1.0-bin-hadoop2.7/
 
 ADD spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar
+ADD mongo-spark-connector_2.10-2.0.0.jar /usr/local/spark/mongo-spark-connector_2.10-2.0.0.jar
+
 
 ENV SPARK_PUBLIC_DNS 172.254.0.5
 ENV SPARK_LOCAL_IP 172.254.0.5
