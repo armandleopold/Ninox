@@ -21,7 +21,8 @@ sudo gnome-terminal -e "bash producer/compile.sh"
 
 # Run application locally on 8 cores
 sudo docker exec spark spark-submit \
-	--jars /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar,/usr/local/spark/mongo-spark-connector_2.10-2.0.0.jar \
+	--packages org.mongodb.spark:mongo-spark-connector_2.11:2.0.0 \
+	--jars /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar \
 	--master local[4] \
 	/home/consumer/kafka_spark_mongodb.py 172.254.0.7:2181 incomingData \
 	100

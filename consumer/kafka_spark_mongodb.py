@@ -40,8 +40,8 @@ from pyspark.streaming.kafka import KafkaUtils
 my_spark = SparkSession \
     .builder \
     .appName("Ninox") \
-    .config("spark.mongodb.input.uri", "mongodb://172.254.0.4/test.coll") \
-    .config("spark.mongodb.output.uri", "mongodb://172.254.0.4/test.coll") \
+    .config("spark.mongodb.input.uri", "mongodb://172.254.0.4:27017/test.coll") \
+    .config("spark.mongodb.output.uri", "mongodb://172.254.0.4:27017/test.coll") \
     .getOrCreate()
 
 people = my_spark.createDataFrame([("Bilbo Baggins",  50), ("Gandalf", 1000), ("Thorin", 195), ("Balin", 178), ("Kili", 77),

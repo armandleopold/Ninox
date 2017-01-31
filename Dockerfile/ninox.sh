@@ -70,7 +70,7 @@ sudo gnome-terminal -e "docker run --name spark -v $PWD/consumer:/home/consumer 
 # Rem. : si on a une socket exception, il faut ajouter dans le host /etc/hosts l'ip de kafka
 
 #phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
-sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.7 --env MONGO_HOST=mongo rocker
+sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker
 #node.js driver pour connecter à la bddmongo
 #voir readme.txt dans le dockerfile/node
 #mise en place du serveur express avec le siteweb accessible depuis localhost:49160/HTML/index.html
