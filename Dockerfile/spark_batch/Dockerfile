@@ -17,8 +17,6 @@ RUN cd $SPARK_HOME/
 RUN tar -zxvf yarn-remote-client.tar.gz 
 RUN ls /usr/local/spark-2.1.0-bin-hadoop2.7/
 
-ADD spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar
-
 ENV SPARK_PUBLIC_DNS 172.254.0.10
 ENV SPARK_LOCAL_IP 172.254.0.10
 
@@ -28,5 +26,8 @@ ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 ENV HADOOP_USER_NAME root
 
 RUN mkdir /home/consumer
+
+# install numpy library for python
+RUN yum install -y numpy
 
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
