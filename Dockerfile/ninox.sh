@@ -47,7 +47,7 @@ sudo docker network create --subnet=172.254.0.0/16 ninoxnet
 sudo gnome-terminal -e "docker run --name kafka --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
 #### Hadoop :
-sudo gnome-terminal -e "docker run --net ninoxnet --ip 172.254.0.2 -d hadoop /etc/bootstrap.sh -bash"
+sudo gnome-terminal -e "docker run --name hadoop --net ninoxnet --ip 172.254.0.2 -d hadoop"
 
 #### Gobblin :
 sudo gnome-terminal -e "docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -it --add-host='kafka:172.254.0.1' gobblin "
