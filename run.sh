@@ -18,7 +18,7 @@ sudo bash compile.sh
 # sudo gnome-terminal -e "bash producer/compile.sh"
 
 # Run application locally on 8 cores
-sudo docker exec spark spark-submit \
+sudo docker exec spark_streaming spark-submit \
 	--packages org.mongodb.spark:mongo-spark-connector_2.11:2.0.0 \
 	--jars /usr/local/spark/spark-streaming-kafka-0-8-assembly_2.11-2.1.0.jar \
 	--master local[4] \

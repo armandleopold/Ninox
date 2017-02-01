@@ -21,7 +21,8 @@ sudo docker build -t mongodb mongodb/
 sudo docker build -t hadoop hadoop/
 
 # Spark
-sudo docker build -t spark spark/
+sudo docker build -t spark_streaming spark_streaming/
+sudo docker build -t spark_batch spark_batch/
 
 # Kafka
 sudo docker build -t kafka kafka/
@@ -55,8 +56,11 @@ sudo gnome-terminal -e "docker run  --name gobblin --net ninoxnet --ip 172.254.0
 #### MongoDB :
 sudo gnome-terminal -e "docker run --name mongo --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
-#### Spark :
-sudo gnome-terminal -e "docker run --name spark -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -it spark"
+#### Spark streaming :
+sudo gnome-terminal -e "docker run --name spark_streaming -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -it spark_streaming"
+
+#### Spark batch:
+sudo gnome-terminal -e "docker run --name spark_batch -v $PWD/batch:/home/batch --net ninoxnet --ip 172.254.0.10 -it --add-host='fb16285d8175:172.254.0.2' spark_batch"
 
 #### MongoRocker :
 sudo gnome-terminal -e "docker run -it -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker"
