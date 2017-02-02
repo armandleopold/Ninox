@@ -58,6 +58,6 @@ allData.cache()
 # Build model
 rf = RF(labelCol='label', featuresCol='features',numTrees=200)
 model = rf.fit(allData)
-model.save(sc, "/home/model", "truc.test")
+model.save("/user/root/models")
 
 sc.stop()
