@@ -14,12 +14,11 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 
-import numpy as np
-from pyspark.ml.classification import RandomForestClassifier as RF
+from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD, LinearRegressionModel
 
 def parsePoint(line):
-    values = [float(x) for x in line.replace(',', ' ').split(' ')]
-    return LabeledPoint(values[0], values[1:])
+    values = [float(x) for x in line.split(',')]
+    return LabeledPoint("null", values[2:])
 
 #my_spark = SparkSession \
 #    .builder \
@@ -49,11 +48,16 @@ if __name__ == "__main__":
     
     lines = directKafkaStream.map(lambda x: x[1])
 
-    parsedData = lines.flatMap(lambda line: line.split(","))
-    parsedData.pprint()
+    features = lines.map(lambda data: Vectors.dense([float(c) for c in data.split(',')]))
+
+    #features = Vectors.dense(lines.split(','))
+    #parsedData.pprint()
 
     # Load model from HDFS
-    RF.load("hdfs://172.254.0.2:9000/user/root/models/")
+    model = LinearRegressionModel.load(sc, "hdfs://172.254.0.2:9000/user/root/models/first.model")
+
+    #Predict
+    predicted = model.predict(features)
 
     ssc.start()
     ssc.awaitTermination()
