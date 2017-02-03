@@ -2,8 +2,8 @@
 sudo apt-get install -y gnome-terminal
 
 # Run architecture core
-sudo gnome-terminal -e "bash Dockerfile/ninox.sh"
-sleep 15
+#sudo gnome-terminal -e "bash Dockerfile/ninox.sh"
+#sleep 15
 
 # ln -s producer/compile.sh compile.sh
 # ln -s producer/libs libs

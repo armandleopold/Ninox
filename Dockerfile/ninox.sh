@@ -57,7 +57,7 @@ sudo gnome-terminal -e "docker run  --name gobblin --net ninoxnet --ip 172.254.0
 sudo gnome-terminal -e "docker run --name mongo --net ninoxnet --ip 172.254.0.4 -it -p 27017:27017 mongodb"
 
 #### Spark streaming :
-sudo gnome-terminal -e "docker run --name spark_streaming -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -it spark_streaming"
+sudo gnome-terminal -e "docker run --name spark_streaming -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -it --add-host='fb16285d8175:172.254.0.2' spark_streaming"
 
 #### Spark batch:
 sudo gnome-terminal -e "docker run --name spark_batch -v $PWD/batch:/home/batch --net ninoxnet --ip 172.254.0.10 -it --add-host='fb16285d8175:172.254.0.2' spark_batch"

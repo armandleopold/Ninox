@@ -1,5 +1,8 @@
 """
  Get data from HDFS, build a model and save it to mongoDb.
+
+https://www.mapr.com/blog/apache-spark-machine-learning-tutorial
+
 """
 
 from __future__ import print_function

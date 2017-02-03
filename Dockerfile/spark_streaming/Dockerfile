@@ -29,4 +29,7 @@ ENV HADOOP_USER_NAME root
 
 RUN mkdir /home/consumer
 
+# install numpy library for python
+RUN yum install -y numpy
+
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin

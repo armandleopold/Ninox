@@ -14,6 +14,7 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 
+import numpy as np
 from pyspark.ml.classification import RandomForestClassifier as RF
 
 def parsePoint(line):
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     parsedData.pprint()
 
     # Load model from HDFS
-    RF.load("hdfs://172.254.0.2:9000/user/root/models")
+    RF.load("hdfs://172.254.0.2:9000/user/root/models/")
 
     ssc.start()
     ssc.awaitTermination()
