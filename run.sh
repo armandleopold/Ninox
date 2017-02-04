@@ -12,8 +12,8 @@ sudo apt-get install -y gnome-terminal
 # ln -s producer/DataProducer.java DataProducer.java
 
 # compile & run producer
-cd producer
-sudo bash compile.sh
+#cd producer
+#sudo bash compile.sh
 
 # sudo gnome-terminal -e "bash producer/compile.sh"
 

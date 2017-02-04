@@ -15,10 +15,20 @@ from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 
 from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD, LinearRegressionModel
+from pyspark.mllib.linalg import Vectors
 
-def parsePoint(line):
-    values = [float(x) for x in line.split(',')]
-    return LabeledPoint("null", values[2:])
+def parsePoint(rdd):
+    values = [float(x) for x in rdd.collect().split(',')]
+    return LabeledPoint("1", values[2:])
+
+def predict(rdd, model):
+    count = rdd.count()
+    if (count > 0):
+        features = rdd.map(lambda s: Vectors.dense(s[1].split(",")))
+        
+        predicted = model.predict(features)
+        predicted.foreach(print)
+        return predicted
 
 #my_spark = SparkSession \
 #    .builder \
@@ -41,24 +51,24 @@ def parsePoint(line):
 
 if __name__ == "__main__":
     sc = SparkContext(appName="PythonStreamingKafkaForecast")
-    ssc = StreamingContext(sc, 10)
-
-    # Create stream to get kafka messages
-    directKafkaStream = KafkaUtils.createDirectStream(ssc, ["incomingData"], {"metadata.broker.list": "172.254.0.7:9092"})
-    
-    lines = directKafkaStream.map(lambda x: x[1])
-
-    features = lines.map(lambda data: Vectors.dense([float(c) for c in data.split(',')]))
-
-    #features = Vectors.dense(lines.split(','))
-    #parsedData.pprint()
+    #ssc = StreamingContext(sc, 10)
 
     # Load model from HDFS
     model = LinearRegressionModel.load(sc, "hdfs://172.254.0.2:9000/user/root/models/first.model")
 
-    #Predict
-    predicted = model.predict(features)
+    # Create stream to get kafka messages
+    #directKafkaStream = KafkaUtils.createDirectStream(ssc, ["incomingData"], {"metadata.broker.list": "172.254.0.7:9092"})
+    
+    #features = directKafkaStream.foreachRDD(lambda rdd: rdd.map(lambda s: Vectors.dense(s[1].split(","))))
+    #directKafkaStream.foreachRDD(lambda rdd: predict(rdd, model))
 
-    ssc.start()
-    ssc.awaitTermination()
+    # Prediction working with this !!
+    features = Vectors.dense(91,74070.25,1,48.02,3.409,13925.06,6927.23,101.64,8471.88,6886.04,220.2651783,7.348,1,151315)
+
+    predicted = model.predict(features)
+    print("HELLO !")
+    print(predicted)
+
+    #ssc.start()
+    #ssc.awaitTermination()
     sc.stop()

@@ -20,7 +20,7 @@ import functools
 # Load and parse the data
 def parsePoint(line):
     values = [float(x) for x in line.split(',')]
-    return LabeledPoint(values[1], values[2:])
+    return LabeledPoint(values[3], values[4:])
 
 sc = SparkContext(appName="BatchBuildModel")
 

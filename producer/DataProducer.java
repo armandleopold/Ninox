@@ -33,7 +33,6 @@ public class DataProducer {
         int i = 1;
 		while ((line = br.readLine()) != null) {
 
-			line += ";";
 		    KeyedMessage<String, String> data = new KeyedMessage<String, String>("incomingData", line);
 		    producer.send(data);
 		
