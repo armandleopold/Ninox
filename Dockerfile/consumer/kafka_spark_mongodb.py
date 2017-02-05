@@ -1,8 +1,6 @@
 """
  Get streaming data from Kafka, use a trained model to make prediction 
- and save them to MongoDb every second.
-
- @Author : Romain CHATEAU
+ and save them to MongoDb every ten seconds.
 """
 
 from __future__ import print_function
@@ -19,47 +17,27 @@ from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD, Line
 from pyspark.mllib.linalg import Vectors
 
 
-#def saveToMongo(value, sparkSession):
-#    df = sparkSession.createDataFrame([(0.001,  value.toDF())], ["timeStamp", "value"])
-#    df.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
-
-def predict(rdd, model, sparkSession):
+def predict(rdd, model, sparkSession, time):
     count = rdd.count()
     if (count > 0):
         features = rdd.map(lambda s: Vectors.dense(s[1].split(",")))
-        features.foreach(print)
         predicted = model.predict(features)
-        df = sparkSession.createDataFrame([(0.001,  predicted.map(lambda x: (x, )).toDF())], ["timeStamp", "value"])
-        
+        result = float(predicted.collect()[0])
+        df = sparkSession.createDataFrame([(time.strftime("%Y-%m-%d %H:%M:%S"), result)], ["timePredicted", "value"])
+        df.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
+
         return predicted
-
-#my_spark = SparkSession \
-#    .builder \
-#    .appName("Ninox") \
-#    .config("spark.mongodb.input.uri", "mongodb://172.254.0.4:27017/test.coll") \
-#    .config("spark.mongodb.output.uri", "mongodb://172.254.0.4:27017/test.coll") \
-#    .getOrCreate()
-
-
-#people = my_spark.createDataFrame([("Bilbo Baggins",  50), ("Gandalf", 1000), ("Thorin", 195), ("Balin", 178), ("Kili", 77),
-#   ("Dwalin", 169), ("Oin", 167), ("Gloin", 158), ("Fili", 82), ("Bombur", None)], ["name", "age"])
-
-#people.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
-
-#df = my_spark.read.format("com.mongodb.spark.sql.DefaultSource").load()
-
-#for row in df.rdd.collect():
- #   print(row)
-
+    else:
+	print("No data received")
 
 if __name__ == "__main__":
-    sc = SparkContext(appName="PythonStreamingKafkaForecast")
+    sc = SparkContext(appName="NinoxStreaming")
 
     my_spark = SparkSession \
         .builder \
         .appName("Ninox") \
-        .config("spark.mongodb.input.uri", "mongodb://172.254.0.4:27017/test.coll") \
-        .config("spark.mongodb.output.uri", "mongodb://172.254.0.4:27017/test.coll") \
+        .config("spark.mongodb.input.uri", "mongodb://172.254.0.4:27017/predictions.data") \
+        .config("spark.mongodb.output.uri", "mongodb://172.254.0.4:27017/predictions.data") \
         .getOrCreate()
 
     ssc = StreamingContext(sc, 10)
@@ -70,15 +48,8 @@ if __name__ == "__main__":
     # Create stream to get kafka messages
     directKafkaStream = KafkaUtils.createDirectStream(ssc, ["incomingData"], {"metadata.broker.list": "172.254.0.7:9092"})
     
-    #features = directKafkaStream.foreachRDD(lambda rdd: rdd.map(lambda s: Vectors.dense(s[1].split(","))))
-    directKafkaStream.foreachRDD(lambda rdd: predict(rdd, model, my_spark))
-
-    # Prediction working with this !!
-    #features = Vectors.dense(91,74070.25,1,48.02,3.409,13925.06,6927.23,101.64,8471.88,6886.04,220.2651783,7.348,1,151315)
-
-    #predicted = model.predict(features)
-    #print("HELLO !")
-    #print(predicted)
+    # Predict and save to mongo
+    directKafkaStream.foreachRDD(lambda time, rdd: predict(rdd, model, my_spark, time))
 
     ssc.start()
     ssc.awaitTermination()
