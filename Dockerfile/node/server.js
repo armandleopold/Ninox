@@ -1,3 +1,4 @@
+
 var express = require('express'),  
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
@@ -10,53 +11,29 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://172.254.0.4:27017/wallmart');  
-var wallmartSchema = mongoose.Schema({  
-  Store: Number,
-  Date: String,
-  Dept: Number,
-  Weekly_Sales: Number,
-  IsHolidayx: String,
-  Temperature: Number,
-  Fuel_Price: Number,
-  MarkDown1: Number,
-  MarkDown2: Number,
-  MarkDown3: Number,
-  CPI: Number,
-  Unemployment: Number,
-  IsHolidayy: String,
-  Type: String,
-  Size: Number
+mongoose.connect('mongodb://172.254.0.4:27017/predictions');  
+var datachema = mongoose.Schema({  
+  timePredicted: String,
+  store_id: Number,
+  value: Number
 });
-var Wallmart = mongoose.model('Wallmart', wallmartSchema);
+var Wallmart = mongoose.model('data', datachema);
 
 var router = express.Router();  
 router.route('/api')  
     .get(function(req, res){
-      Wallmart.find(function(err, wallmarts){
+      Wallmart.find(function(err, data){
         if(err){
           res.send(err);
         }
-        res.send(wallmarts);
+        res.send(data);
       });
     })
     .post(function(req, res){
       var wallmart = new Wallmart();
-      wallmart.Store = req.body.Store;
-      wallmart.Date = req.body.Date;
-      wallmart.Dept = req.body.Dept;
-      wallmart.Weekly_Sales = req.body.Weekly_Sales;
-      wallmart.IsHolidayx = req.body.IsHolidayx;
-      wallmart.Temperature = req.body.Temperature;
-      wallmart.Fuel_Price = req.body.Fuel_Price;
-      wallmart.MarkDown1 = req.body.MarkDown1;
-      wallmart.MarkDown1 = req.body.MarkDown2;
-      wallmart.MarkDown1 = req.body.MarkDown3;
-      wallmart.CPI = req.body.CPI;
-      wallmart.Unemployment = req.body.Unemployment;
-      wallmart.IsHolidayy = req.body.IsHolidayy;
-      wallmart.Type = req.body.Type;
-      wallmart.Size = req.body.Size;
+      wallmart.timePredicted = req.body.timePredicted;
+      wallmart.store_id = req.body.store_id;
+      wallmart.value = req.body.value;
       wallmart.save(function(err){
         if(err){
           res.send(err);
@@ -79,21 +56,9 @@ router.route('/:wallmart_id')
       if(err){
         res.send(err);
       }
-      wallmart.Store = req.body.Store;
-      wallmart.Date = req.body.Date;
-      wallmart.Dept = req.body.Dept;
-      wallmart.Weekly_Sales = req.body.Weekly_Sales;
-      wallmart.IsHolidayx = req.body.IsHolidayx;
-      wallmart.Temperature = req.body.Temperature;
-      wallmart.Fuel_Price = req.body.Fuel_Price;
-      wallmart.MarkDown1 = req.body.MarkDown1;
-      wallmart.MarkDown1 = req.body.MarkDown2;
-      wallmart.MarkDown1 = req.body.MarkDown3;
-      wallmart.CPI = req.body.CPI;
-      wallmart.Unemployment = req.body.Unemployment;
-      wallmart.IsHolidayy = req.body.IsHolidayy;
-      wallmart.Type = req.body.Type;
-      wallmart.Size = req.body.Size;
+      wallmart.timePredicted = req.body.timePredicted;
+      wallmart.store_id = req.body.store_id;
+      wallmart.value = req.body.value;
       wallmart.save(function(err){
         if(err){
           res.send(err);

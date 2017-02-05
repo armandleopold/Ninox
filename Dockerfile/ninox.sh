@@ -91,8 +91,9 @@ sudo gnome-terminal -e "docker run -it --name apache -v $PWD/siteweb:/var/www/ht
 sudo gnome-terminal -e "docker run -it -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker"
 # phpmyadmin-like pour mongodb accessible depuis localhost:8080 admin/password 
 
-
 #### NodeJs :
+sudo gnome-terminal -e " docker run -p 49160:9090 -p 49161:3000 --name nodejs --net ninoxnet --ip 172.254.0.8 --link mongo:mongo -it -v $PWD/siteweb:/usr/src/app/public nodetest"
+
 #sudo gnome-terminal -e " docker run -p 49160:9090 -p 49161:3000 --name nodejs --net ninoxnet --ip 172.254.0.8 --link mongo:mongo -it -v $PWD/siteweb/:/usr/src/app/public nodetest"
 #node.js driver pour connecter à la bddmongo
 #voir readme.txt dans le dockerfile/node
