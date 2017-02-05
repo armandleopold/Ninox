@@ -9,7 +9,6 @@ from pyspark.mllib.linalg import Vectors
 # Libraries for predictive analytics
 from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD, LinearRegressionModel
 
-
 # Load and parse the data
 def parsePoint(line):
     values = [float(x) for x in line.split(",")]
