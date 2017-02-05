@@ -23,7 +23,8 @@ def predict(rdd, model, sparkSession, time):
         features = rdd.map(lambda s: Vectors.dense(s[1].split(",")))
         predicted = model.predict(features)
         result = float(predicted.collect()[0])
-        df = sparkSession.createDataFrame([(time.strftime("%Y-%m-%d %H:%M:%S"), result)], ["timePredicted", "value"])
+	store_id = float(features.collect()[0][0])
+        df = sparkSession.createDataFrame([(time.strftime("%Y-%m-%d %H:%M:%S"), store_id, result)], ["timePredicted", "store_id", "value"])
         df.write.format("com.mongodb.spark.sql.DefaultSource").mode("append").save()
 
         return predicted

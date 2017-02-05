@@ -28,7 +28,7 @@ cd Dockerfile
 sudo bash ninox.sh
 
 # Waiting for HDFS to leave safe mode
-sleep 45
+sleep 60
 
 echo ""
 echo "###############################################################################"
