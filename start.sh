@@ -17,11 +17,15 @@ echo "##########################################################################
 echo ""
 
 
-sudo bash rm.sh
+echo ""
+echo "###############################################################################"
+echo "# Building and launching images by running ninox.sh"
+echo "###############################################################################"
+echo ""
 
-sudo docker run --name hadoop --net ninoxnet --ip 172.254.0.2 -d hadoop
+cd Dockerfile
 
-sudo docker run --name spark_batch -v $PWD/batch:/home/batch --net ninoxnet --ip 172.254.0.10 -d --add-host='fb16285d8175:172.254.0.2' spark_batch
+sudo bash ninox.sh
 
 # Waiting for HDFS to leave safe mode
 sleep 45
@@ -42,16 +46,6 @@ echo "##########################################################################
 echo "# Done building base model, starting streaming now"
 echo "###############################################################################"
 echo ""
-
-sudo docker run --name kafka --net ninoxnet --ip 172.254.0.7 -d --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka
-
-sudo docker run --name spark_streaming -v $PWD/consumer:/home/consumer --net ninoxnet --ip 172.254.0.5 -d --add-host='fb16285d8175:172.254.0.2' spark_streaming
-
-sudo docker run --name mongo --net ninoxnet --ip 172.254.0.4 -d -p 27017:27017 mongodb
-
-sudo docker run -d -p 8080:80 --net ninoxnet --ip 172.254.0.9 --env MONGO_HOST=mongo rocker
-
-sleep 20
 
 echo ""
 echo "###############################################################################"

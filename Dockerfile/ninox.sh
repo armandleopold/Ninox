@@ -9,11 +9,25 @@
 ##################################################
 ##################################################
 
+echo ""
+echo ""
+echo "######################################################################"
+echo "######################################################################"
+echo "#			NINOX ARCHITECTURE LAUNCHER 	"	 
+echo "#			   Le 22 Janvier 2017		"		 
+echo "#			   	     v 1.1		"				 
+echo "#######################################################################"
+echo "#######################################################################"
+echo ""
+
+echo "# Removing running containers"
 sudo bash rm.sh
+echo "# Done"
 
 ###################################
 #### Building docker images :
 
+echo "# Building images"
 # MongoDB 
 sudo docker build -t mongodb mongodb/
 
@@ -32,23 +46,26 @@ sudo docker build -t gobblin gobblin/
 
 # rockerMongodb
 sudo docker build -t rocker rockermongo-master/
-#
- node.js
+#node.js
 sudo  docker build -t nodetest node/
+echo "# Done"
 
 ###################################
 #### Creating docker network :
-
+echo "# Creating docker network"
 sudo docker network create --subnet=172.254.0.0/16 ninoxnet
-
+echo "# Done"
 ###################################
 ### Running Docker Images :
 
+cd ../
+
+echo "# Launching docker images"
 #### Kafka : 
 sudo gnome-terminal -e "docker run --name kafka --net ninoxnet --ip 172.254.0.7 -it --hostname 172.254.0.7 -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=172.254.0.7 --env ADVERTISED_PORT=9092 kafka"
 
 #### Hadoop :
-sudo gnome-terminal -e "docker run --name hadoop --net ninoxnet --ip 172.254.0.2 -d hadoop"
+sudo gnome-terminal -e "docker run --name hadoop --net ninoxnet --ip 172.254.0.2 -it hadoop"
 
 #### Gobblin :
 sudo gnome-terminal -e "docker run  --name gobblin --net ninoxnet --ip 172.254.0.3 -it --add-host='kafka:172.254.0.1' gobblin "
@@ -71,3 +88,15 @@ sudo gnome-terminal -e " docker run -p 49160:9090 -p 49161:3000 --name nodejs --
 #node.js driver pour connecter à la bddmongo
 #voir readme.txt dans le dockerfile/node
 #mise en place du serveur express avec le siteweb accessible depuis localhost:49160/HTML/index.html
+echo "# Done"
+
+echo ""
+echo ""
+echo "######################################################################"
+echo "######################################################################"
+echo "#"
+echo "#				END NINOX.SH 	"	 
+echo "#"				 
+echo "#######################################################################"
+echo "#######################################################################"
+echo ""
