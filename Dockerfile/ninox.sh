@@ -51,7 +51,7 @@ sudo docker build -t rocker rockermongo-master/
 #sudo  docker build -t nodetest node/
 
 # Apache 
-sudo docker built -t apache apache/
+sudo docker build -t apache apache/
 
 echo "# Done"
 
