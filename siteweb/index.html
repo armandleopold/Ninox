@@ -1,141 +1,170 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en">
 
-<head> <!-- JS -->
-            <script type="text/javascript" src="assets/js/jquery.min.js" type="text/javascript"></script>
-            <script type="text/javascript" src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-            <script type="text/javascript" src="assets/js/scripts.js"></script>
-            <!-- Isotope - Portfolio Sorting -->
-            <script type="text/javascript" src="assets/js/jquery.isotope.js" type="text/javascript"></script>
-            <!-- Mobile Menu - Slicknav -->
-            <script type="text/javascript" src="assets/js/jquery.slicknav.js" type="text/javascript"></script>
-            <!-- Animate on Scroll-->
-            <script type="text/javascript" src="assets/js/jquery.visible.js" charset="utf-8"></script>
-            <!-- Stellar Parallax -->
-            <script type="text/javascript" src="assets/js/jquery.stellar.js" charset="utf-8"></script>
-            <!-- Sticky Div -->
-            <script type="text/javascript" src="assets/js/jquery.sticky.js" charset="utf-8"></script>
-            <!-- Slimbox2-->
-            <script type="text/javascript" src="assets/js/slimbox2.js" charset="utf-8"></script>
-            <!-- Modernizr -->
-            <script src="assets/js/modernizr.custom.js" type="text/javascript"></script>
-            <!-- End JS -->
-	<style>
-
-  .bar{
-    fill: steelblue;
-  }
-
-  .bar:hover{
-    fill: brown;
-  }
-
-	.axis {
-	  font: 10px sans-serif;
-	}
-
-	.axis path,
-	.axis line {
-	  fill: none;
-	  stroke: #000;
-	  shape-rendering: crispEdges;
-	}
-
-	</style>
-<script type="text/javascript">
-var auto_refresh = setInterval(
-  function ()
-  {
-    $('#load_donnees').load('index.html').fadeIn("slow");
-  }, 10000); // rafraichis toutes les 10000 millisecondes
- 
-</script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wallmart Weekly sales</title>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/freelancer.css" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/plotly-latest.min.js"></script>
+        <script src="js/graph.js"></script>
 </head>
 
-<body>
+<body id="page-top" class="index">
 
-<h1>rafraichis toutes les 10000 millisecondes</h1>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<div id="load_donnees">
-<script>
-// set the dimensions of the canvas
-var margin = {top: 20, right: 20, bottom: 70, left: 40},
-    width = 600 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#page-top">Wallmart Weekly sales</a>
+            </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio">Data visualisation</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-// set the ranges
-var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive" src="img/profile.png" alt="">
+                    <div class="intro-text">
+                        <span class="name">WEEKLY SALES</span>
+                        <hr class="star-light">
+                        <span class="skills">Armand Leopold - Florent Bacqué - Romain Chateau - Aida Tamboura - Sarha Serghini - Thibault Maridor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-var y = d3.scale.linear().range([height, 0]);
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Data Visualisation</h2>
+                    <hr class="star-primary">
+                    <div id="divGraph"></div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </section>
 
-// define the axis
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
+    <!-- About Section -->
+    <section class="success" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>About</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                <article class="markdown-body entry-content" itemprop="text"><p align="center">
+  <a href="https://github.com/erandal/Ninox" target="_blank"><img src="https://camo.githubusercontent.com/2daf28fb10476ee83203f174befba48ee0336ce5/687474703a2f2f61726d616e642d6c656f706f6c642e66722f6e696e6f782f6c6f676f2e6a7067" width="350" data-canonical-src="http://armand-leopold.fr/ninox/logo.jpg" style="max-width:100%;"></a>
+</p>
 
+<h1><a id="user-content-ninox-" class="anchor" href="#ninox-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ninox :</h1>
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .ticks(10);
+<p>Ninox is a new scalable database architecture with machine learning oriented features.</p>
 
+<h1><a id="user-content-database-architecture-" class="anchor" href="#database-architecture-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Database Architecture :</h1>
 
-// add the SVG element
-var svg = d3.select("#load_donnees").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", 
-          "translate(" + margin.left + "," + margin.top + ")");
+<p align="center">
+  <a href="img/architecture.png" target="_blank"><img src="img/architecture.png" data-canonical-src="http://armand-leopold.fr/ninox/ninox%20architecture.png" style="max-width:100%;"></a>
+</p>
 
+<h1><a id="user-content-technologies-" class="anchor" href="#technologies-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Technologies :</h1>
 
-// load the data
-d3.json('http://localhost:49160/api/', function(error, data) {
+<h2><a id="user-content-apache-kafka-" class="anchor" href="#apache-kafka-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Apache Kafka :</h2>
 
-    data.forEach(function(d) {
-        d.Date = d._id;
-        d.Weekly_Sales = +d.Weekly_Sales;
-    });
-	
-  // scale the range of the data
-  x.domain(data.map(function(d) { return d.Date; }));
-  y.domain([0, d3.max(data, function(d) { return d.Weekly_Sales; })]);
+<p>Kafka™ is a distributed streaming platform.
+<a href="https://kafka.apache.org/intro">https://kafka.apache.org/intro</a></p>
 
-  // add axis
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-    .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", "-.55em")
-      .attr("transform", "rotate(-90)" );
+<h2><a id="user-content-hadoop-distributed-file-system-hdfs-" class="anchor" href="#hadoop-distributed-file-system-hdfs-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Hadoop Distributed File System (HDFS) :</h2>
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 5)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Weekly_Sales");
+<p>Distributed database system working with the hadoop environnement.
+<a href="https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html">https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html</a></p>
 
-  // Add bar chart
-  svg.selectAll("bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.Date); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.Weekly_Sales); })
-      .attr("height", function(d) { return height - y(d.Weekly_Sales); });
+<h2><a id="user-content-apache-spark-" class="anchor" href="#apache-spark-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Apache Spark :</h2>
 
-});
+<p>Apache Spark™ is a fast and general engine for large-scale data processing.
+<a href="http://spark.apache.org/">http://spark.apache.org/</a></p>
 
-</script>
-</div>
+<h2><a id="user-content-mongodb-" class="anchor" href="#mongodb-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MongoDB :</h2>
+
+<p>Distributed database system.
+<a href="https://www.mongodb.com/">https://www.mongodb.com/</a></p>
+</article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Your Website 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/plugin-js.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/freelancer.min.js"></script>
+
 </body>
 
+</html>
