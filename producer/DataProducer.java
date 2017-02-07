@@ -25,7 +25,12 @@ public class DataProducer {
         String csvFile = "data.csv";
         BufferedReader br = null;
         String line = "";
-	
+
+        System.out.println("##########################################################\n");
+        System.out.println("Ninox Kafka Producer exemple");
+        System.out.println("Input 1 row of data each 10sec on Topic \"incomingData\".");
+        System.out.println("##########################################################\n");
+
 	try{
 
 		br = new BufferedReader(new FileReader(csvFile));
